@@ -29,7 +29,7 @@ public:
     }
 
     // To access the label
-    inline string &GetLabel( ) {
+    inline string &GetLabel( ) {//Inline not neccesary because its in a .h file
 
         return m_Label;
     };

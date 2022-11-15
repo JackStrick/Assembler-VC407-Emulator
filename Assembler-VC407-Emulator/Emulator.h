@@ -22,6 +22,7 @@ public:
 private:
 
     vector<int> m_memory;  	// Memory for the VC407
+    int m_acc; //Accumulator
 };
 
 #endif
