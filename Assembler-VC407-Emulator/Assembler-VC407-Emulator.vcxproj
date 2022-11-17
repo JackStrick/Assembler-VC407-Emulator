@@ -146,7 +146,7 @@
     <ClCompile Include="SymTab.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\TestProg.txt" />
+    <Text Include="..\Testproc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

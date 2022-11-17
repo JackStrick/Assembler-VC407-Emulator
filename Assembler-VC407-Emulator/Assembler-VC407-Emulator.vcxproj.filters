@@ -61,6 +61,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\TestProg.txt" />
+    <Text Include="..\Testproc">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
