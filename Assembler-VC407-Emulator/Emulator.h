@@ -1,5 +1,5 @@
 //
-//		Emulator class - supports the emulation of VC8000 programs
+//		Emulator class - supports the emulation of VC407 programs
 //
 #ifndef _EMULATOR_H      // UNIX way of preventing multiple inclusions.
 #define _EMULATOR_H
