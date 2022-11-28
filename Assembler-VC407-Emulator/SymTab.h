@@ -20,7 +20,7 @@ public:
     void AddSymbol( const string &a_symbol, int a_loc );
 
     // Display the symbol table.
-    void DisplaySymbolTable( ) { cout << "burp" << endl;}
+    void DisplaySymbolTable();
 
     // Lookup a symbol in the symbol table.
     bool LookupSymbol( const string &a_symbol, int &a_loc );

@@ -24,8 +24,23 @@ public:
 
     // Compute the location of the next instruction.
     int LocationNextInstruction( int a_loc ){
-        cout << "Jack Jack" << endl;
-        return a_loc + 1;
+        if (m_Label.empty() && m_OpCode == "org")
+        {
+            return stoi(m_Operand);
+        }
+        else if (m_OpCode == "ds")
+        {
+            return a_loc + stoi(m_Operand);
+        }
+        else if (m_Label.empty() && m_OpCode.empty() && m_Operand.empty())
+        {
+            return a_loc;
+        }
+        else {
+
+            return a_loc + 1;
+        }
+        
     }
 
     // To access the label

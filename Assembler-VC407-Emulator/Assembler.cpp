@@ -56,3 +56,14 @@ void Assembler::PassI( )
     }
 }
 
+
+void Assembler::PassII()
+{
+    m_inst.GetLabel();
+
+    
+
+
+
+}
+

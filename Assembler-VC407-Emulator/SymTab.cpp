@@ -20,8 +20,7 @@ DESCRIPTION
     This function will place the symbol "a_symbol" and its location "a_loc"
     in the symbol table.
 */
-void 
-SymbolTable::AddSymbol( const string &a_symbol, int a_loc )
+void SymbolTable::AddSymbol( const string &a_symbol, int a_loc )
 {
     // If the symbol is already in the symbol table, record it as multiply defined.
     map<string, int>::iterator st = m_symbolTable.find( a_symbol );
@@ -32,4 +31,25 @@ SymbolTable::AddSymbol( const string &a_symbol, int a_loc )
     }
     // Record a the  location in the symbol table.
     m_symbolTable[a_symbol] = a_loc;
+}
+
+void SymbolTable::DisplaySymbolTable()
+{
+    cout << "Symbol Table: \n" << endl;
+    cout << "Symbol #   Symbol  Location" << endl;
+    auto it = m_symbolTable.begin();
+    
+   
+   for (int i = 0; i < m_symbolTable.size(); i++)
+    {
+       string sym = it->first;
+       int loc = it->second;
+       cout << i << "          " << sym << "       " << loc << endl;
+       it++;
+       
+    }
+   
+   cout << "\n------------------------------------------------" << endl;
+   cout << "\n\nPress Enter to Continue . . ." << endl;
+   cin.ignore();
 }
