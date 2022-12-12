@@ -57,13 +57,109 @@ void Assembler::PassI( )
 }
 
 
+/*
+NAME
+
+    PassII - Second Pass On File, with Error Reporting
+
+SYNOPSIS
+
+    void Assembler::PassII();
+
+DESCRIPTION
+
+    Translates each line into Instruction Code
+    Checks and reports on errors in file passed
+*/
 void Assembler::PassII()
 {
-    m_inst.GetLabel();
+    //Point Back To Start of File
+    m_facc.rewind();
+    //Error Reporting
+    Errors::InitErrorReporting();
+
+    cout << "Translation of Program\n" << endl;
+    cout << "Location\tContents\tOriginal Statement" << endl;
+    
+    //Second Pass
+    int loc = 0; 
+    
+    for (; ; ) {
+
+        // Read the next line from the source file.
+        string line;
+
+        //If no END Statement Report Error
+        if (!m_facc.GetNextLine(line)) {
+
+            Errors::RecordError("ERROR - missing END statement. Unable to continue process...");
+            return;
+        }
+
+        // Parse the line and get the instruction type.
+        Instruction::InstructionType st = m_inst.ParseInstruction(line);
+
+        
+        //Determine if the end is the last statement and report an error if it isn't.
+        if (st == Instruction::ST_End)
+        {
+            if (m_facc.GetNextLine(line)) 
+            {
+                Errors::RecordError("Instruction Following End Statement - Assembler.cpp: Line 108");//Make a check for commented out lines
+            }
+            m_inst.DisplayOutput(loc, st);
+            return;
+        }
+            
+        // Labels can only be on machine language and assembler language
+        // instructions.  So, skip comments.
+        else if (st == Instruction::ST_Comment)
+        {
+            m_inst.DisplayOutput(loc, st);
+            continue;
+        }
+        else if (st == Instruction::ST_AssemblerInstr)
+        {
+            m_inst.DisplayOutput(loc, st);
+        }
+        else if (st == Instruction::ST_MachineLanguage)
+        {
+            /*if (!m_symtab.LookupSymbol(m_inst.GetLabel(), loc))
+            {
+                Errors::RecordError("Symbol Does Not Exist - Assembler.cpp: Line 129");
+            }*/
+            string operand = m_inst.GetOperand();
+            string opcode = m_inst.GetOpCode();
+            int OperandLoc = 0;
+            if (operand != "") {
+                OperandLoc = m_symtab.GetValue(operand);
+                if (OperandLoc == -1)
+                {
+                    Errors::RecordError("Operand Does Not Exist In Symbol Table - Assmebler.cpp: Line 137");
+                }
+            }
+            
+
+            string OpCheck = opcode;
+            transform(OpCheck.begin(), OpCheck.end(), OpCheck.begin(), ::toupper);
+            int NumericOpcode = m_inst.GetOpCodeValue(OpCheck);
+            if (NumericOpcode == -1)
+            {
+                Errors::RecordError("The Attempted Operation Does Not Exist - Assmebler.cpp: Line 143");
+            }
+            
+            m_inst.DisplayMLOutput(loc, OperandLoc, NumericOpcode);
+        }
+        
+        // Compute the location of the next instruction.
+        loc = m_inst.LocationNextInstruction(loc);
+    }
+
+
 
     
 
 
-
+    
 }
 

@@ -26,7 +26,7 @@ public:
     void DisplaySymbolTable() { m_symtab.DisplaySymbolTable(); }
     
     // Run emulator on the translation.
-    void RunProgramInEmulator() { cout << "Jack Jack" << endl;}
+    void RunProgramInEmulator();
 
 private:
 

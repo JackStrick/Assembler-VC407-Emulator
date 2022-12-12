@@ -13,6 +13,8 @@
 // Standard include files.
 #include <stdio.h>
 #include <iostream>
+#include <algorithm>
+#include <iomanip>
 #include <stdlib.h>
 #include <string>
 //#include <windows.h>
