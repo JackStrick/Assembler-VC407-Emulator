@@ -29,7 +29,7 @@ Instruction::InstructionType Instruction::ParseInstruction(string a_line)
     transform(OpCheck.begin(), OpCheck.end(), OpCheck.begin(), ::toupper);
     if (!m_Label.empty() && m_OpCode.empty())
     {
-        Errors::RecordError("A label exists but an Operation Code Does Not: Instruction.cpp Line: 18");
+        Errors::RecordError("A label exists but an Operation Code Does Not: Instruction.cpp Line: 32");
     }
     else if (m_Label.empty() && m_OpCode.empty())
     {
@@ -84,8 +84,12 @@ int Instruction::LocationNextInstruction(int a_loc)
     //If yes, increment the save location with the operand
     //If the instruction is completely empty
     
-    if (m_Label.empty() && (OpCheck == "ORG"))
+    if (OpCheck == "ORG")
     {
+        if (!m_Label.empty())
+        {
+            Errors::RecordError("ORG Command Preceded By Label - Instruction.cpp: Line 91");
+        }
         return stoi(m_Operand);
     }
     else if (OpCheck == "DS")
@@ -135,6 +139,8 @@ int Instruction::GetOpCodeValue(const string& a_symbol) {
     }
 }
 
+
+
 void Instruction::DisplayOutput(int a_loc, InstructionType type)
 {
     if (type == ST_Comment)
@@ -162,9 +168,9 @@ void Instruction::DisplayOutput(int a_loc, InstructionType type)
     }
 }
 
-void Instruction::DisplayMLOutput(int a_loc, int OperandLoc, int NumericOpcode)
+void Instruction::DisplayMLOutput(int a_loc, int OperandLoc, int a_NumericOpCode)
 {
-    cout << a_loc << "\t\t" << setfill('0') << setw(2) << right << NumericOpcode << setfill('0') << setw(4) << right << OperandLoc << "\t\t" << m_instruction << endl;
+    cout << a_loc << "\t\t" << setfill('0') << setw(2) << right << a_NumericOpCode << setfill('0') << setw(4) << right << OperandLoc << "\t\t" << m_instruction << endl;
 }
 
 

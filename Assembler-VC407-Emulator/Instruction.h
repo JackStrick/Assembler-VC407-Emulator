@@ -28,41 +28,43 @@ public:
     //Display The Output
     void DisplayOutput(int a_loc, InstructionType);
 
-    void DisplayMLOutput(int a_loc, int OperandLoc, int NumericOpcode);
+    //Display Machine Language Output
+    void DisplayMLOutput(int a_loc, int OperandLoc, int a_NumericOpCode);
 
+    //Checks if the operand is numeric - Purpose is to throw error if ML instruction enters with a numeric operand
     void IsOperandNumeric(string m_Operand);
-        
 
+    //Get the OpCode numeric value from the OpCode Map
+    int GetOpCodeValue(const string& a_symbol);
+
+
+        
     // To access the label
     inline string &GetLabel( ) {//Inline not neccesary because its in a .h file
-
         return m_Label;
     };
 
+    // To access the OpCode
     string& GetOpCode() {
-
         return m_OpCode;
     };
 
+    // To access the Operand
     string& GetOperand() {
         return m_Operand;
     };
 
     // To determine if a label is blank.
     inline bool isLabel( ) {
-
         return ! m_Label.empty();
     };
 
+    // To access the numerical OpCode
     int& GetNumOpCode() {
         return m_NumOpCode;
     };
 
-    int GetOpCodeValue(const string& a_symbol);
-
 private:
-
-
     // The elements of an instruction
     string m_Label;        // The label.
     string m_OpCode;       // The symbolic op code.

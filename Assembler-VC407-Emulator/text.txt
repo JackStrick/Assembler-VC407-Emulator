@@ -1,0 +1,21 @@
+        org 100
+        read n 
+more    load n
+        mult fac
+        store fac
+
+;Here is a comment that sit on its own line.
+        LOAD n         ;  Show OP Code case insensitive
+        sub one
+        store n
+               
+        bp more
+
+        write fac
+        halt            ; no need for any operands.
+
+n       ds 100; just to show that you code can handle big areas.
+fac     dc 1
+one     dc 1
+test    dc 123456 ; show your program can handle big constants.
+        end

@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="Assem.cpp" />
     <ClCompile Include="Assembler.cpp" />
+    <ClCompile Include="Emulator.cpp" />
     <ClCompile Include="Errors.cpp" />
     <ClCompile Include="FileAccess.cpp" />
     <ClCompile Include="Instruction.cpp" />
@@ -147,6 +148,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Testproc" />
+    <Text Include="text.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

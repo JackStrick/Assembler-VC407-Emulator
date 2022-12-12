@@ -4,12 +4,12 @@
 #ifndef _EMULATOR_H      // UNIX way of preventing multiple inclusions.
 #define _EMULATOR_H
 
-class emulator {
+class Emulator {
 
 public:
 
     const static int MEMSZ = 10'000;	// The size of the memory of the VC407.
-    emulator() {
+    Emulator() {
 
          m_memory.resize(MEMSZ, 0);
     }

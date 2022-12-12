@@ -33,6 +33,6 @@ private:
     FileAccess m_facc;	    // File Access object
     SymbolTable m_symtab;   // Symbol table object
     Instruction m_inst;	    // Instruction object
-    emulator m_emul;        // Emulator object
+    Emulator m_emul;        // Emulator object
 };
 

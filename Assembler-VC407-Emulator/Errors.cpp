@@ -11,8 +11,6 @@ void Errors::InitErrorReporting()
 	m_ErrorMsgs.clear();
 }
 
-
-
 void Errors::DisplayErrors()
 {
 	for (int i = 0; i < m_ErrorMsgs.size(); i++)
@@ -20,7 +18,6 @@ void Errors::DisplayErrors()
 		cout << m_ErrorMsgs[i] << endl;
 	}
 }
-
 
 
 

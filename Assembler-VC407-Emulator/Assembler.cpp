@@ -120,46 +120,75 @@ void Assembler::PassII()
         }
         else if (st == Instruction::ST_AssemblerInstr)
         {
+            //Display output for Assem Instruction
             m_inst.DisplayOutput(loc, st);
         }
         else if (st == Instruction::ST_MachineLanguage)
         {
-            /*if (!m_symtab.LookupSymbol(m_inst.GetLabel(), loc))
-            {
-                Errors::RecordError("Symbol Does Not Exist - Assembler.cpp: Line 129");
-            }*/
+            //Get Operand and Opcode
             string operand = m_inst.GetOperand();
             string opcode = m_inst.GetOpCode();
+
+            //Initialize to hold operand location
             int OperandLoc = 0;
-            if (operand != "") {
+
+            //If operand is not empty, get its location from symbol table
+            if (operand != "") 
+            {
+                //Pass Operand as key to return the value in SymTab map
                 OperandLoc = m_symtab.GetValue(operand);
+
+                //OperandLoc returns as -1 if it was not in the table
+                //Record Error
                 if (OperandLoc == -1)
                 {
-                    Errors::RecordError("Operand Does Not Exist In Symbol Table - Assmebler.cpp: Line 137");
+                    Errors::RecordError("Operand Does Not Exist In Symbol Table - Assmebler.cpp: Line 145");
                 }
             }
             
-
+            //Convert to Uppercase
             string OpCheck = opcode;
             transform(OpCheck.begin(), OpCheck.end(), OpCheck.begin(), ::toupper);
+
+            //Find numeric opcode and set variable
             int NumericOpcode = m_inst.GetOpCodeValue(OpCheck);
+
+            //If OpCode didn't exist, returns -1 and records an error
             if (NumericOpcode == -1)
             {
-                Errors::RecordError("The Attempted Operation Does Not Exist - Assmebler.cpp: Line 143");
+                Errors::RecordError("The Attempted Operation Does Not Exist - Assmebler.cpp: Line 159");
             }
             
+            //Display Output for Machine Language Instruction
             m_inst.DisplayMLOutput(loc, OperandLoc, NumericOpcode);
+
+            //create contents variable to store in emulator memory
+            int contents = (NumericOpcode * 10000) + OperandLoc;
+            
+            //If memory insert returns false then record error
+            if (!m_emul.insertMemory(loc, contents))
+            {
+                Errors::RecordError("Memory Already Exists in Attempted Location or Location is out of bounds - Assembler.cpp: Line 171");
+            }
         }
-        
         // Compute the location of the next instruction.
         loc = m_inst.LocationNextInstruction(loc);
     }
+}
 
-
-
-    
-
-
-    
+void Assembler::RunProgramInEmulator()
+{
+    //Check if errors exist in error vector
+    if (Errors::IsError())
+    {
+        //If true, display all errors
+        Errors::DisplayErrors();
+    }
+    //Run Emulation
+    if (!m_emul.runProgram())
+    {
+        cout << "Unknown Operation Code - Assembler.cpp: Line 190\nTerminating Program....\n" << endl;
+    }
+    cout << "\nEnd of emulation" << endl;
 }
 
