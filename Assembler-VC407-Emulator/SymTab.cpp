@@ -29,10 +29,30 @@ void SymbolTable::AddSymbol( const string &a_symbol, int a_loc )
         st->second = multiplyDefinedSymbol;
         return;
     }
-    // Record a the  location in the symbol table.
+    // Record the location in the symbol table.
     m_symbolTable[a_symbol] = a_loc;
 }
 
+/*NAME
+
+    LookupSymbol - Checks the Map For Symbol
+
+SYNOPSIS
+
+    bool SymbolTable::LookupSymbol(const string& a_symbol, int& a_loc)
+        a_symbol	-> The name of the symbol to check against the symbol table.
+        a_loc		-> the location associated with the symbol.
+
+DESCRIPTION
+
+    This function will check if the symbol "a_symbol" and its location "a_loc" are
+    in the symbol table.
+
+RETURNS
+    
+    True    ->  The symbol exists
+    False   ->  The symbol does NOT exist
+*/
 bool SymbolTable::LookupSymbol(const string& a_symbol, int& a_loc)
 {
     map<string, int>::iterator st = m_symbolTable.find(a_symbol);
@@ -42,6 +62,26 @@ bool SymbolTable::LookupSymbol(const string& a_symbol, int& a_loc)
     }
 }
 
+
+/*NAME
+
+    GetValue - Finds the Value of the Map at a given Key
+
+SYNOPSIS
+
+    int SymbolTable::GetValue(const string& a_symbol)
+        a_symbol    ->  The name of the symbol to check against the symbol table.
+
+DESCRIPTION
+
+    This function will check if the symbol "a_symbol" is in the symbol table by Iterating through the map
+    and using a_symbol as the key. If the key exists in the table, the function will return the value at the key
+
+RETURNS
+
+    Integer:
+        Value: Location stored at Key
+*/
 int SymbolTable::GetValue(const string& a_symbol)
 {
     map<string, int>::iterator st = m_symbolTable.find(a_symbol);
@@ -55,14 +95,33 @@ int SymbolTable::GetValue(const string& a_symbol)
     }
 }
 
+/*NAME
 
+    DisplaySymbolTable - Displays contents of the Symbol Table Map
+
+SYNOPSIS
+
+    void SymbolTable::DisplaySymbolTable()
+        - No Arguments
+
+DESCRIPTION
+
+    This function will displays the entire contents of the Symbol Table Map 
+    to the user via the console.
+
+RETURNS
+
+    None
+
+*/
 void SymbolTable::DisplaySymbolTable()
 {
     cout << "Symbol Table: \n" << endl;
     cout << "Symbol # \tSymbol \t\tLocation" << endl;
     auto it = m_symbolTable.begin();
     
-   
+    //Iterate through each pair in the map and display 
+    //the key and the value along with its place in order ("i")
     for (int i = 0; i < m_symbolTable.size(); i++)
     {
         string sym = it->first;

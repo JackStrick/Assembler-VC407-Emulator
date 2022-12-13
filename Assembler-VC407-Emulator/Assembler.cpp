@@ -176,6 +176,20 @@ void Assembler::PassII()
     }
 }
 
+/*
+NAME
+
+    RunProgramInEmulator - Call To Initialize and Run the Emulator
+
+SYNOPSIS
+
+    void Assembler::RunProgramInEmulator()
+
+DESCRIPTION
+
+    Checks if any errors are present and displays them
+    Runs the emulator program.
+*/
 void Assembler::RunProgramInEmulator()
 {
     //Check if errors exist in error vector
@@ -187,7 +201,10 @@ void Assembler::RunProgramInEmulator()
     //Run Emulation
     if (!m_emul.runProgram())
     {
-        cout << "Unknown Operation Code - Assembler.cpp: Line 190\nTerminating Program....\n" << endl;
+        cout << "Unknown Operation Code - Assembler.cpp: Line 204\nTerminating Program....\n" << endl;
+        // If there is an unrecoverable error, the
+        // Program will terminate at the point that it occurred with an exit(1) call.
+        exit(1);
     }
     cout << "\nEnd of emulation" << endl;
 }
